@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+
+<html lang="cn">
+    <head>
+    <meta charset="utf-8">
+    <!--
+        hexo-theme-suka © SukkaW
+        GitHub: https://github.com/SukkaW/hexo-theme-suka
+    -->
+
+    <!-- ### Resource Hint ### -->
+
+    <!-- ## DNS Prefetch ## -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+<!-- busuanzi -->
+
+    <link rel="dns-prefetch" href="//busuanzi.ibruce.info">
+
+
+<!-- comment -->
+
+
+
+    <link rel="dns-prefetch" href="//api.github.com">
+    <link rel="dns-prefetch" href="//cors-anywhere.herokuapp.com">
+
+
+
+
+
+<!-- analytics -->
+
+    <link rel="dns-prefetch" href="//hm.baidu.com">
+
+
+    <link rel="dns-prefetch" href="//www.google-analytics.com">
+
+
+
+
+
+
+    <!-- ## Preload ## -->
+    
+    <!-- Busuanzi -->
+    
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/busuanzi@2.3.0/bsz.pure.mini.js" as="script">
+
+
+
+
+
+
+
+    <!-- ### Meta & Title & Info ### -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+    <meta name="renderer" content="webkit">
+
+    <!-- Title -->
+    <title>Photoshop脚本实现批量添加日期水印 | Laozeng&#39;s Blog</title>
+
+    <!-- Favicons -->
+    <link rel="icon" type="image&#x2F;ico" href="/img/favicon.ico">
+
+    <!-- ### Import File ### -->
+    <link rel="stylesheet" href="/lib/spectre/spectre.min.css"><style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    a, a:visited {
+        color: #0070ff;
+    }
+
+    a:active, a:focus, a:hover {
+        color: #0070ff;
+        opacity: .75;
+    }
+
+    #post-content a,
+    #post-content a:hover,
+    #post-content a:focus,
+    #post-content a:visited {
+        color: #005eb9;
+        opacity: 1;
+    }
+
+    
+
+    .post-entry .card-body a {
+        color: #0070ff;
+    }
+
+    .avatar {
+        background: #444;
+    }
+
+    .navbar-link,
+    .navbar-link:visited,
+    .timeline .timeline-item .timeline-icon.icon-lg {
+        color: #0070ff;
+    }
+
+    .navbar-link:hover {
+        color: #0070ff;
+        opacity: .8;
+    }
+
+    #search-input .btn,
+    #disqus_click_btn,
+    #disqus-switch-to-direct,
+    #disqus-loadmore-button {
+        background: #727e96;
+        border-color: #727e96;
+        color: #fff;
+    }
+
+    #post-toc a.post-toc-link,
+    #post-toc a.post-toc-link:visited,
+    .share-menu.menu .menu-item>a {
+        color: #727e96;
+    }
+
+    .share-menu.menu .menu-item>a:hover,
+    .share-menu.menu .menu-item>a:focus,
+    .share-menu.menu .menu-item>a:visited {
+        color: #50596c;
+        background: #f8f9fa;
+        opacity: .85;
+    }
+</style><link rel="stylesheet" href="/css/style.min.css">
+
+
+
+
+
+
+
+
+    <!-- Prettify Theme -->
+    
+    <link rel="preload" href="/css/highlight/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/css/highlight/github.min.css"></noscript>
+
+
+
+
+
+<script>
+/*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+!function(t){"use strict";t.loadCSS||(t.loadCSS=function(){});var e=loadCSS.relpreload={};if(e.support=function(){var e;try{e=t.document.createElement("link").relList.supports("preload")}catch(t){e=!1}return function(){return e}}(),e.bindMediaToggle=function(t){var e=t.media||"all";function a(){t.addEventListener?t.removeEventListener("load",a):t.attachEvent&&t.detachEvent("onload",a),t.setAttribute("onload",null),t.media=e}t.addEventListener?t.addEventListener("load",a):t.attachEvent&&t.attachEvent("onload",a),setTimeout(function(){t.rel="stylesheet",t.media="only x"}),setTimeout(a,3e3)},e.poly=function(){if(!e.support())for(var a=t.document.getElementsByTagName("link"),n=0;n<a.length;n++){var o=a[n];"preload"!==o.rel||"style"!==o.getAttribute("as")||o.getAttribute("data-loadcss")||(o.setAttribute("data-loadcss",!0),e.bindMediaToggle(o))}},!e.support()){e.poly();var a=t.setInterval(e.poly,500);t.addEventListener?t.addEventListener("load",function(){e.poly(),t.clearInterval(a)}):t.attachEvent&&t.attachEvent("onload",function(){e.poly(),t.clearInterval(a)})}"undefined"!=typeof exports?exports.loadCSS=loadCSS:t.loadCSS=loadCSS}("undefined"!=typeof global?global:this);
+</script>
+
+    <!-- ### Site Verification ### -->
+    
+
+
+    <meta name="mobile-web-app-capable" content="yes"><meta name="application-name" content="Laozeng's Blog"><meta name="msapplication-starturl" content="https://laozeng.net"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Laozeng's Blog"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><link rel="search" type="application/opensearchdescription+xml" href="/source/opensearch.xml" title="Laozeng's Blog">
+
+    <!-- ### The Open Graph & Twitter Card Protocol ### -->
+    <meta property="og:title" content="Photoshop脚本实现批量添加日期水印 | Laozeng&#39;s Blog"><meta property="og:site_name" content="Laozeng&#39;s Blog"><meta property="og:type" content="article"><meta property="og:url" content="https:&#x2F;&#x2F;laozeng.net&#x2F;photoshop-auto-add-date.html"><meta property="og:locale" content="cn"><meta name="description" content="手头上有几百张照片，需要添加日期水印，如何使用Photoshop脚本实现？ - laozeng - Laozeng&#39;s Blog"><meta name="keywords" content="photoshop, watermark"><meta property="og:image" content="https:&#x2F;&#x2F;laozeng.net&#x2F;images&#x2F;photoshop-auto-add-date&#x2F;auto_add_date.gif"><meta property="og:image" content="https:&#x2F;&#x2F;laozeng.net&#x2F;images&#x2F;photoshop-auto-add-date&#x2F;debug.png"><meta property="article:published_time" content="2020-08-02T16:00:00.000Z"><meta property="article:modified_time" content="2020-08-07T13:38:35.619Z"><meta property="og:updated_time" content="2020-08-07T13:38:35.619Z"><meta property="article:author" content="laozeng"><meta property="article:tag" content="photoshop, watermark"><meta name="twitter:card" content="summary">
+
+    
+
+    <!-- ### Canonical link ### -->
+    <link rel="canonical" href="https://laozeng.net/photoshop-auto-add-date.html">
+
+    <meta name="generator" content="Hexo 4.0.0">
+
+    <!-- ### Analytics ### -->
+    
+    <!-- Google Analytics -->
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-174261315-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+
+
+
+
+    <script>
+    var _hmt = _hmt || [];
+    (function() {var hm = document.createElement('script');
+    hm.src = 'https://hm.baidu.com/hm.js?9c39f697e98413a14db71b5085798af2';
+    var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+    <!-- ### Structured Data ### -->
+    
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "url": "https://laozeng.net/photoshop-auto-add-date.html",
+    "@type": "BlogPosting",
+    "logo": "https://laozeng.net/img/favicon.ico",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://laozeng.net/photoshop-auto-add-date.html"
+    },
+    "headline": "Photoshop脚本实现批量添加日期水印 | Laozeng&#39;s Blog",
+    
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://laozeng.net/img/favicon.ico"
+    },
+    
+    "datePublished": "2020-08-02T16:00:00.000Z",
+    "dateModified": "2020-08-07T13:38:35.619Z",
+    "author": {
+        "@type": "Person",
+        "name": "laozeng",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://laozeng.net/img/default_avatar.png"
+        },
+        "description": "A man is not old until regrets take the place of dreams."
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "Laozeng&#39;s Blog",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://laozeng.net/img/favicon.ico"
+        }
+    },
+    
+    "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://laozeng.net/search?s={search_term_string}",
+        "query-input": "required name=search_term_string"
+    },
+    
+    "keywords": "photoshop, watermark",
+    "description": "手头上有几百张照片，需要添加日期水印，如何使用Photoshop脚本实现？ - laozeng - Laozeng&#39;s Blog"
+}
+</script>
+
+
+
+    <!-- ### Custom Head ### -->
+    
+</head>
+
+    <body>
+            
+
+            <!-- ### Main content ### -->
+            <!-- ## Header ##-->
+<header>
+    <h1 class="header-title text-center"><a href="/">Laozeng&#39;s Blog</a></h1>
+
+    <p class="text-center header-slogan">
+        
+            
+                A man is not old until regrets take the place of dreams.
+            
+        
+    </p>
+
+    <nav class="navbar-section text-center">
+    
+        <a href="/" class="navbar-link">Home</a>
+    
+    
+        <a href="/archives/" class="navbar-link">Archives</a>
+    
+    
+    
+    
+        <div class="dropdown dropdown-right">
+    <a class="navbar-link dropdown-toggle" tabindex="0">Share</a>
+    <ul class="menu share-menu">
+
+        <!-- Share Weibo -->
+        
+        <li class="menu-item">
+            <a href="http://service.weibo.com/share/share.php?appkey=&title=Laozeng's Blog&url=https://laozeng.net&pic=https://laozeng.net/img/favicon.ico&searchPic=false&style=simple" target="_blank" rel="external noopener noreferrer nofollow">Share to Weibo</a>
+        </li>
+        
+
+        <!-- Share Twitter -->
+        
+        <li class="menu-item">
+            <a href="https://twitter.com/intent/tweet?text=Laozeng's Blog&url=https://laozeng.net&via=laozeng" target="_blank" rel="external noopener noreferrer nofollow">Share to Twitter</a>
+        </li>
+        
+
+        <!-- Share Facebook -->
+        
+
+        <!-- Share Google+ -->
+        
+
+        <!-- Share LinkedIn -->
+        
+
+        <!-- Share QQ -->
+        
+        <li class="menu-item">
+            <a href="http://connect.qq.com/widget/shareqq/index.html?site=Laozeng's Blog&title=Photoshop脚本实现批量添加日期水印&summary=laozeng blog&pics=https://laozeng.net/img/favicon.ico&url=https://laozeng.net" target="_blank" rel="external noopener noreferrer nofollow"> Share to QQ</a>
+        </li>
+        
+
+        <!-- Share Telegram -->
+        
+
+        <!-- QRCode -->
+        
+        <li class="menu-item">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJQAAACUCAAAAABQV18IAAAB2klEQVR42u3bQXKDMBBEUe5/6XiVKpvSTLeAhdR8NokxmEdKlpiWcvwtuB2gQIECNUAdzXZ+//v1z4cNzvvf714HVBZq2OgKxAh1Pn50rLoOqDzUqEGri3YXPu9zrgPqHaiu4VYdKShQbkOvBtLqOFDvRrUDpdHAnfcee0oAtTxKFQ5P/Xy0mgG1LEqGDkVx6R5TnXMrdQG1NGpUdDqdoAovOmxZ6IKKQbkAdYxCVX8AUHkoZyB1Q7Uu+FChLqgMVBfQd6F9FeSrSYA2gAMVhVKhqhtsuDcJKhelCgM16aMmhLqCBFQu6k6Q70xod4MyqDyUCixUcOF0st3gDCoPpT7kqQH40rcP1JaomYc4FbKpCYPqWFBZKKfgdCeRui+BuhFQOagrD3pOkeDcQBuagYpBuZOJ7oDsFqKgclDdgNl1mt3AqsKTqQEZ1HaoO52fKjymiw9QMSjnpCcWREzNOIDaFqUmnVUIOxO8qgdEUBkotxPtApGZhRbTM6OgtkO5C5pViNoVE+5kJagclPOQ53wBrGCs65BBRaHuNvDqd7ejBfUelNrndMB2CALqVSgV0rsFhB3EgtoeNbPgZqbQdBaGgcpDuQOn/Q8UFxergspArbSBAgUK1Nf2Aa1Prx42Y5m1AAAAAElFTkSuQmCC" alr="QRCode">
+        </li>
+        
+
+    </ul>
+</div>
+    
+    
+</nav>
+</header>
+
+            
+    <!-- ## Post ## -->
+    <div class="post-container">
+    <div id="post-card" class="card">
+        
+        <div class="card-item-container">
+            <div class="card-inner-cell">
+                <!-- # Post Header Info # -->
+                <div class="card-header">
+                    
+    <h1 class="card-title h3 mb-2">Photoshop脚本实现批量添加日期水印</h1>
+
+
+
+
+<div class="post-header-info">
+    <p class="post-header-info-left text-gray">
+        <img class="author-thumb lazyload" data-src="/img/default_avatar.png" src="/img/suka-lazyload.gif" alt="laozeng's Avatar">
+        <span>2020-08-03</span>
+        
+            <span class="suka-devide-dot"></span>
+            <a class="category-link" href="/categories/%E6%95%99%E7%A8%8B/">教程</a>
+        
+        
+            <!-- Busuanzi Post Views -->
+<span id="busuanzi_container_page_pv" hidden>
+    <span class="suka-devide-dot"></span>
+    <span></span>
+    <span id="busuanzi_value_page_pv"></span>
+    <span>Views</span>
+</span>
+        
+        
+    </p>
+    <div class="post-header-info-right">
+        
+            <div class="dropdown dropdown-right">
+<a class="dropdown-toggle" tabindex="0">Share the post</a>
+<ul class="menu share-menu">
+    <!-- Share Weibo -->
+    
+    <li class="menu-item">
+        <a href="http://service.weibo.com/share/share.php?appkey=&title=Photoshop脚本实现批量添加日期水印&url=https://laozeng.net/photoshop-auto-add-date.html&pic=https://laozeng.net/img/favicon.ico&searchPic=false&style=simple" target="_blank" rel="external noopener noreferrer nofollow">Share to Weibo</a>
+    </li>
+    
+
+    <!-- Share Twitter -->
+    
+    <li class="menu-item">
+        <a href="https://twitter.com/intent/tweet?text=Photoshop脚本实现批量添加日期水印&url=https://laozeng.net/photoshop-auto-add-date.html&via=laozeng" target="_blank" rel="external noopener noreferrer nofollow">Share to Twitter</a>
+    </li>
+    
+
+    <!-- Share Facebook -->
+    
+
+    <!-- Share Google+ -->
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+    <li class="menu-item">
+        <a href="http://connect.qq.com/widget/shareqq/index.html?site=Laozeng's Blog&title=Laozeng's Blog&summary=laozeng blog&pics=https://laozeng.net/img/favicon.ico&url=https://laozeng.net/photoshop-auto-add-date.html" target="_blank" rel="external noopener noreferrer nofollow"> Share to QQ</a>
+    </li>
+    
+
+    <!-- Share Telegram -->
+    
+
+    <!-- QRCode -->
+    
+    <li class="menu-item">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJQAAACUCAAAAABQV18IAAAB2klEQVR42u3bQXKDMBBEUe5/6XiVKpvSTLeAhdR8NokxmEdKlpiWcvwtuB2gQIECNUAdzXZ+//v1z4cNzvvf714HVBZq2OgKxAh1Pn50rLoOqDzUqEGri3YXPu9zrgPqHaiu4VYdKShQbkOvBtLqOFDvRrUDpdHAnfcee0oAtTxKFQ5P/Xy0mgG1LEqGDkVx6R5TnXMrdQG1NGpUdDqdoAovOmxZ6IKKQbkAdYxCVX8AUHkoZyB1Q7Uu+FChLqgMVBfQd6F9FeSrSYA2gAMVhVKhqhtsuDcJKhelCgM16aMmhLqCBFQu6k6Q70xod4MyqDyUCixUcOF0st3gDCoPpT7kqQH40rcP1JaomYc4FbKpCYPqWFBZKKfgdCeRui+BuhFQOagrD3pOkeDcQBuagYpBuZOJ7oDsFqKgclDdgNl1mt3AqsKTqQEZ1HaoO52fKjymiw9QMSjnpCcWREzNOIDaFqUmnVUIOxO8qgdEUBkotxPtApGZhRbTM6OgtkO5C5pViNoVE+5kJagclPOQ53wBrGCs65BBRaHuNvDqd7ejBfUelNrndMB2CALqVSgV0rsFhB3EgtoeNbPgZqbQdBaGgcpDuQOn/Q8UFxergspArbSBAgUK1Nf2Aa1Prx42Y5m1AAAAAElFTkSuQmCC" alt="QRCode">
+    </li>
+    
+
+</ul>
+</div>
+        
+    </div>
+</div>
+                </div>
+                <div class="card-body">
+                    
+                        
+                        
+                            <div id="post-toc"><ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#自动化脚本"><span class="post-toc-number">2.</span> <span class="post-toc-text">自动化脚本</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#使用方法"><span class="post-toc-number">3.</span> <span class="post-toc-text">使用方法</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#注意事项"><span class="post-toc-number">4.</span> <span class="post-toc-text">注意事项</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#附录：如何在Photoshop调试js脚本"><span class="post-toc-number">5.</span> <span class="post-toc-text">附录：如何在Photoshop调试js脚本</span></a></li></ol></div>
+                        
+                    
+                    <article id="post-content">
+                        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>手头有上百张照片打印，需要在照片添加上拍摄日期水印，最原始的方法就是使用Photoshop给每张照片逐一添加。Photoshop的动作录制，可以实现批量相同日期，但每张照片拍摄日期都不尽相同，显然不能满足需求。</p>
+<p>当然，Photoshop还支持自定义脚本，实现照片批量处理。脚本实现效果如下：</p>
+<p><img src="/images/photoshop-auto-add-date/auto_add_date.gif" alt="脚本自动添加日期水印"></p>
+<a id="more"></a>
+
+<h1 id="自动化脚本"><a href="#自动化脚本" class="headerlink" title="自动化脚本"></a>自动化脚本</h1><p>脚本代码如下，如有更新请查看github:</p>
+<blockquote>
+<p><a href="https://github.com/laozeng1024/photoshop" target="_blank" rel="noopener">https://github.com/laozeng1024/photoshop</a></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">文件：auot_add_date.js</span><br><span class="line">功能：photoshop脚本从exif获取日期，自动添加日期水印。如没有exif日期信息，则从文件名从读取日期。</span><br><span class="line">作者：laozeng,https://github.com/laozeng1024</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">//自定义字符串，如“@上海”，使用urlencode编码</span><br><span class="line">var customStr = &quot;%40%E4%B8%8A%E6%B5%B7&quot;;</span><br><span class="line">//exif中“日期时间”字段名称，urlencode编码</span><br><span class="line">var photoTimeStr = &quot;%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4&quot;;</span><br><span class="line"></span><br><span class="line">var inputFolder = Folder.selectDialog(&quot;请选择需要添加日期水印图片所在文件夹：&quot;);</span><br><span class="line">var outFolder = Folder.selectDialog(&quot;选择图片保存输出的文件夹：&quot;);</span><br><span class="line"></span><br><span class="line">//判断文件夹是否存在</span><br><span class="line">if (inputFolder != null &amp;&amp; inputFolder != null) </span><br><span class="line">&#123;</span><br><span class="line">    //获得文件夹下的所有图片</span><br><span class="line">    var fileList = inputFolder.getFiles();</span><br><span class="line"></span><br><span class="line">    //遍历图片</span><br><span class="line">    for (var i = 0; i &lt; fileList.length; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        //判断图片是否正常文件，并且处于非隐藏状态</span><br><span class="line">        if (fileList[i] instanceof File &amp;&amp; fileList[i].hidden == false) </span><br><span class="line">        &#123;       </span><br><span class="line">            //打开遍历到的图片</span><br><span class="line">            var docRef = open(fileList[i]);</span><br><span class="line"></span><br><span class="line">            //设置另存路径文件名，重命名为:new_原文件名</span><br><span class="line">            var fileout = new File(outFolder+&apos;/new_&apos;+ basename(fileList[i]))</span><br><span class="line"></span><br><span class="line">            //获得exif照片日期，可自行加自定义文字customStr</span><br><span class="line">            //photoTime = getExifData(docRef) + decodeURIComponent(customStr)</span><br><span class="line">            photoTime = getExifData(docRef)</span><br><span class="line">            //如果exif没有日期数据，从文件名读取</span><br><span class="line">            if (photoTime == 0)</span><br><span class="line">            &#123;</span><br><span class="line">                photoTime = basename(fileList[i])</span><br><span class="line">                photoTime = photoTime.toString().slice(0, -4)</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            //新建图层</span><br><span class="line">            var layerRef = docRef.artLayers.add();</span><br><span class="line"></span><br><span class="line">            //设置为文字图层</span><br><span class="line">            layerRef.kind = LayerKind.TEXT;</span><br><span class="line"></span><br><span class="line">            //设置图层文字</span><br><span class="line">            layerRef.textItem.contents = photoTime;</span><br><span class="line"></span><br><span class="line">            //根据图片宽度比例，设置文字大小</span><br><span class="line">            layerRef.textItem.size = docRef.width/20;</span><br><span class="line"></span><br><span class="line">            //定义颜色</span><br><span class="line">            var color = new RGBColor();</span><br><span class="line"></span><br><span class="line">            //设置red属性</span><br><span class="line">            color.red = 255;</span><br><span class="line"></span><br><span class="line">            //设置green属性</span><br><span class="line">            color.green = 255;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            //设置blue属性</span><br><span class="line">            color.blue = 255;</span><br><span class="line">            </span><br><span class="line">            //定义水印文字的颜色</span><br><span class="line">            var sc = new SolidColor();</span><br><span class="line"></span><br><span class="line">            //设置[sc]对象的[rgb]属性的值为变量[color]</span><br><span class="line">            sc.rgb = color;</span><br><span class="line"></span><br><span class="line">            //将文本图层的字体颜色设置为变量[sc]</span><br><span class="line">            layerRef.textItem.color = sc;</span><br><span class="line"></span><br><span class="line">            //设置文本图层透明度</span><br><span class="line">            layerRef.fillOpacity = 90;</span><br><span class="line"></span><br><span class="line">            //将文本图层向下移动。调节日期水印左右和上下位置</span><br><span class="line">            layerRef.translate(250, docRef.height/1.15 - 72);</span><br><span class="line"></span><br><span class="line">            //合并文本图层至背景图层</span><br><span class="line">            layerRef.merge();</span><br><span class="line"></span><br><span class="line">            //另存照片</span><br><span class="line">            //定义一个变量[asCopy]，用来指定图片以副本的方式保存</span><br><span class="line">            var asCopy = true;</span><br><span class="line"></span><br><span class="line">            //定义一个变量[extensionType]，用来指定图片名称的后缀为小写的.jpg</span><br><span class="line">            var extensionType = Extension.LOWERCASE;</span><br><span class="line"></span><br><span class="line">            //定义一个变量[options]，用来指定图片保存的格式为JPG。PNG为PNGSaveOptions</span><br><span class="line">            var options = JPEGSaveOptions;</span><br><span class="line">            docRef.saveAs(fileout, options, asCopy, extensionType);</span><br><span class="line">            </span><br><span class="line">            //操作完成后，直接关闭文档</span><br><span class="line">            docRef.close(SaveOptions.DONOTSAVECHANGES);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    alert(&quot;添加日期水印，已处理完成！&quot;)</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line">//获取exif中的日期</span><br><span class="line">function getExifData(doc) &#123;</span><br><span class="line"></span><br><span class="line">var exifData = doc.info.exif;</span><br><span class="line">var photoTime = 0</span><br><span class="line">for(j = 0; j &lt; exifData.length; j++ ) </span><br><span class="line">&#123;</span><br><span class="line">    encodeStr = encodeURIComponent(exifData[j][0])</span><br><span class="line">    switch(encodeStr)</span><br><span class="line">    &#123;   </span><br><span class="line">        //urlencode 中文再判断</span><br><span class="line">        //日期时间</span><br><span class="line">        case photoTimeStr:</span><br><span class="line">            photoTime = exifData[j][1];</span><br><span class="line">            break;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line">return photoTime;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//获取文件名</span><br><span class="line">function basename(str) &#123;</span><br><span class="line">    str = str.toString();</span><br><span class="line">    var idx = str.toString().lastIndexOf(&apos;/&apos;)</span><br><span class="line">    idx = idx &gt; -1 ? idx : str.lastIndexOf(&apos;\\&apos;)</span><br><span class="line">    if (idx &lt; 0) &#123;</span><br><span class="line">        return str</span><br><span class="line">    &#125;</span><br><span class="line">    return str.substring(idx + 1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><ol>
+<li>将脚本代码保存到本地。</li>
+<li>photoshop-文件-脚本-浏览，选择脚本js，根据提示选择照片所在目录，即可批量添加日期水印。</li>
+</ol>
+<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><ol>
+<li>如照片经过处理没有exif日期信息，或exif无法读取日期信息，则从文件名从读取日期。可将照片文件名命名为日期格式，如2020-06-01.jpg</li>
+<li>相机语言为英文，exif日期字段可能为英文，需要自行修改“photoTimeStr”字段，并用urlencode编码。</li>
+<li>可通过customStr字段自定义日期水印外的文字，同样需要urlencode编码。</li>
+</ol>
+<h1 id="附录：如何在Photoshop调试js脚本"><a href="#附录：如何在Photoshop调试js脚本" class="headerlink" title="附录：如何在Photoshop调试js脚本"></a>附录：如何在Photoshop调试js脚本</h1><p>方法1：最原始方法，在js脚本中使用alert弹窗调试。</p>
+<p>方法2：利用mac脚本编辑器来执行js代码，错误会在编辑器中提示。如Adobe Photoshop 2020中调试脚本为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tell application &quot;Adobe Photoshop 2020&quot;</span><br><span class="line">     do javascript &quot;#include /Users/person/04Photo/John/auto_add_date.js&quot;</span><br><span class="line">end tell</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/photoshop-auto-add-date/debug.png" alt="debug"></p>
+
+                    </article>
+                    
+
+
+    <blockquote id="date-expire-notification" class="post-expired-notify">This article was last updated on <span id="date-expire-num"></span> days ago, and the information described in the article may have changed.</blockquote>
+    <script>
+    (function() {
+        var dateUpdate = Date.parse("2020-08-07");
+        var nowDate = new Date();
+        var a = nowDate.getTime();
+        var b = a - dateUpdate;
+        var daysUpdateExpire = Math.floor(b/(24*3600*1000));
+        if (daysUpdateExpire >= 120) {
+            document.getElementById('date-expire-num').innerHTML = daysUpdateExpire;
+        } else {
+            document.getElementById('date-expire-notification').style.display = 'none';
+        }
+    })();
+    </script>
+
+
+<p class="post-footer-info mb-0 pt-0">Published at&nbsp;<time datetime="2020-08-02T16:00:00.000Z" itemprop="datePublished">2020-08-03</time>
+
+    , Updated at&nbsp;<time datetime="2020-08-07T13:38:35.619Z" itemprop="dateModified">2020-08-07</time>
+
+</p>
+<p class="post-footer-info mb-0 pt-2">
+
+<span class="post-categories-list mt-2">
+
+<a class="post-categories-list-item" href='/categories/%E6%95%99%E7%A8%8B/'>教程</a>
+
+</span>
+
+
+
+<span class="post-tags-list mt-2">
+
+<a class="post-tags-list-item" href="/tags/photoshop/" rel="tag">#&nbsp;photoshop</a>
+
+<a class="post-tags-list-item" href="/tags/watermark/" rel="tag">#&nbsp;watermark</a>
+
+</span>
+
+
+</p>
+
+                </div>
+                <div class="post-nav px-2 bg-gray">
+<ul class="pagination">
+    <!-- Prev Nav -->
+    
+        <li class="page-item page-prev">
+            <a href="/how-to-import-mp3-to-iphone.html" rel="prev">
+                <div class="page-item-title"><i class="icon icon-back" aria-hidden="true"></i></div>
+                <div class="page-item-subtitle">课程MP3如何导入到iPhone顺序播放？</div>
+            </a>
+        </li>
+    
+
+    <!-- Next Nav -->
+    
+</ul>
+</div>
+
+                
+                    <!-- # Comment # -->
+                    
+                        <div class="card-footer post-comment">
+                            <!-- Gitalk Container -->
+<div id="gitalk-container"></div>
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/gitalk@1.3.3/dist/gitalk.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.3.3/dist/gitalk.min.css"></noscript>
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.3.3/dist/gitalk.min.js"></script>
+
+<script>
+    var gitalk = new Gitalk({
+            clientID: '8063c2f9859e2ecf4989',
+            clientSecret: 'b15c4e85881970fa0d9d87320d90fa62e019e321',
+            repo: 'laozeng1024.github.io',
+            owner: 'laozeng1024',
+            admin: ['laozeng1024'],
+            // facebook-like distraction free mode
+            distractionFreeMode: false,
+            id: window.location.pathname
+        })
+   gitalk.render('gitalk-container')
+</script>
+                        </div>
+                    
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+            <!-- ### Footer ### -->
+            <footer class="text-center">
+    <!-- footer copyright -->
+
+    
+        <p class="footer-copyright mb-0">Copyright&nbsp;©&nbsp;<span id="copyright-year"></span>
+            <a class="footer-copyright-a" href="https://laozeng.net">Laozeng's Blog</a>
+        </p>
+
+    <!-- footer custom text -->
+    <p class="footer-text mb-0">
+    
+    </p>
+    <!-- footer develop info -->
+
+</footer>
+
+
+        <!-- ### Import File ### -->
+        <!-- ### Footer JS Import ### -->
+
+<script>
+
+    
+window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 50
+};
+document.getElementById('copyright-year').textContent = new Date().getFullYear();
+console.log('\n %c Suka Theme (hexo-theme-suka) | © SukkaW | Verision 1.3.3 %c https://github.com/SukkaW/hexo-theme-suka \n', 'color: #fff; background: #444; padding:5px 0;', 'background: #bbb; padding:5px 0;');
+
+</script>
+
+<script src="/lib/vanilla-lazyload/lazyload.min.js" async></script>
+    <script src="https://cdn.jsdelivr.net/npm/busuanzi@2.3.0/bsz.pure.mini.js" async></script>
+
+
+<!-- Offset -->
+
+
+
+
+<!-- Comment -->
+
+    
+        <!-- GitTalk -->
+    
+
+
+<!-- ### Custom Footer ### -->
+
+    </body>
+
+</html>

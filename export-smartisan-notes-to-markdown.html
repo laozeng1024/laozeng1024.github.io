@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+
+<html lang="cn">
+    <head>
+    <meta charset="utf-8">
+    <!--
+        hexo-theme-suka © SukkaW
+        GitHub: https://github.com/SukkaW/hexo-theme-suka
+    -->
+
+    <!-- ### Resource Hint ### -->
+
+    <!-- ## DNS Prefetch ## -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+
+<!-- busuanzi -->
+
+    <link rel="dns-prefetch" href="//busuanzi.ibruce.info">
+
+
+<!-- comment -->
+
+
+
+    <link rel="dns-prefetch" href="//api.github.com">
+    <link rel="dns-prefetch" href="//cors-anywhere.herokuapp.com">
+
+
+
+
+
+<!-- analytics -->
+
+    <link rel="dns-prefetch" href="//hm.baidu.com">
+
+
+    <link rel="dns-prefetch" href="//www.google-analytics.com">
+
+
+
+
+
+
+    <!-- ## Preload ## -->
+    
+    <!-- Busuanzi -->
+    
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/busuanzi@2.3.0/bsz.pure.mini.js" as="script">
+
+
+
+
+
+
+
+    <!-- ### Meta & Title & Info ### -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+    <meta name="renderer" content="webkit">
+
+    <!-- Title -->
+    <title>锤子便签批量导出markdown文件，实现每天自动备份到本地 | Laozeng&#39;s Blog</title>
+
+    <!-- Favicons -->
+    <link rel="icon" type="image&#x2F;ico" href="/img/favicon.ico">
+
+    <!-- ### Import File ### -->
+    <link rel="stylesheet" href="/lib/spectre/spectre.min.css"><style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    a, a:visited {
+        color: #0070ff;
+    }
+
+    a:active, a:focus, a:hover {
+        color: #0070ff;
+        opacity: .75;
+    }
+
+    #post-content a,
+    #post-content a:hover,
+    #post-content a:focus,
+    #post-content a:visited {
+        color: #005eb9;
+        opacity: 1;
+    }
+
+    
+
+    .post-entry .card-body a {
+        color: #0070ff;
+    }
+
+    .avatar {
+        background: #444;
+    }
+
+    .navbar-link,
+    .navbar-link:visited,
+    .timeline .timeline-item .timeline-icon.icon-lg {
+        color: #0070ff;
+    }
+
+    .navbar-link:hover {
+        color: #0070ff;
+        opacity: .8;
+    }
+
+    #search-input .btn,
+    #disqus_click_btn,
+    #disqus-switch-to-direct,
+    #disqus-loadmore-button {
+        background: #727e96;
+        border-color: #727e96;
+        color: #fff;
+    }
+
+    #post-toc a.post-toc-link,
+    #post-toc a.post-toc-link:visited,
+    .share-menu.menu .menu-item>a {
+        color: #727e96;
+    }
+
+    .share-menu.menu .menu-item>a:hover,
+    .share-menu.menu .menu-item>a:focus,
+    .share-menu.menu .menu-item>a:visited {
+        color: #50596c;
+        background: #f8f9fa;
+        opacity: .85;
+    }
+</style><link rel="stylesheet" href="/css/style.min.css">
+
+
+
+
+
+
+
+
+    <!-- Prettify Theme -->
+    
+    <link rel="preload" href="/css/highlight/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="/css/highlight/github.min.css"></noscript>
+
+
+
+
+
+<script>
+/*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+!function(t){"use strict";t.loadCSS||(t.loadCSS=function(){});var e=loadCSS.relpreload={};if(e.support=function(){var e;try{e=t.document.createElement("link").relList.supports("preload")}catch(t){e=!1}return function(){return e}}(),e.bindMediaToggle=function(t){var e=t.media||"all";function a(){t.addEventListener?t.removeEventListener("load",a):t.attachEvent&&t.detachEvent("onload",a),t.setAttribute("onload",null),t.media=e}t.addEventListener?t.addEventListener("load",a):t.attachEvent&&t.attachEvent("onload",a),setTimeout(function(){t.rel="stylesheet",t.media="only x"}),setTimeout(a,3e3)},e.poly=function(){if(!e.support())for(var a=t.document.getElementsByTagName("link"),n=0;n<a.length;n++){var o=a[n];"preload"!==o.rel||"style"!==o.getAttribute("as")||o.getAttribute("data-loadcss")||(o.setAttribute("data-loadcss",!0),e.bindMediaToggle(o))}},!e.support()){e.poly();var a=t.setInterval(e.poly,500);t.addEventListener?t.addEventListener("load",function(){e.poly(),t.clearInterval(a)}):t.attachEvent&&t.attachEvent("onload",function(){e.poly(),t.clearInterval(a)})}"undefined"!=typeof exports?exports.loadCSS=loadCSS:t.loadCSS=loadCSS}("undefined"!=typeof global?global:this);
+</script>
+
+    <!-- ### Site Verification ### -->
+    
+
+
+    <meta name="mobile-web-app-capable" content="yes"><meta name="application-name" content="Laozeng's Blog"><meta name="msapplication-starturl" content="https://laozeng.net"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Laozeng's Blog"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><link rel="search" type="application/opensearchdescription+xml" href="/source/opensearch.xml" title="Laozeng's Blog">
+
+    <!-- ### The Open Graph & Twitter Card Protocol ### -->
+    <meta property="og:title" content="锤子便签批量导出markdown文件，实现每天自动备份到本地 | Laozeng&#39;s Blog"><meta property="og:site_name" content="Laozeng&#39;s Blog"><meta property="og:type" content="article"><meta property="og:url" content="https:&#x2F;&#x2F;laozeng.net&#x2F;export-smartisan-notes-to-markdown.html"><meta property="og:locale" content="cn"><meta name="description" content="锤子便签官方没有提供批量导出备份功能，程序实现批量导出，每天自动备份到本地。 - laozeng - Laozeng&#39;s Blog"><meta name="keywords" content="Smartisan, 锤子便签"><meta property="og:image" content="https:&#x2F;&#x2F;laozeng.net&#x2F;images&#x2F;export-smartisan-notes-to-markdown&#x2F;Notes_1706614282825.jpg"><meta property="og:image" content="https:&#x2F;&#x2F;laozeng.net&#x2F;images&#x2F;export-smartisan-notes-to-markdown&#x2F;Notes_1706614293929.jpg"><meta property="og:image" content="https:&#x2F;&#x2F;laozeng.net&#x2F;images&#x2F;export-smartisan-notes-to-markdown&#x2F;Notes_1706614337818.jpg"><meta property="og:image" content="https:&#x2F;&#x2F;laozeng.net&#x2F;images&#x2F;export-smartisan-notes-to-markdown&#x2F;Notes_1706614398223.jpg"><meta property="og:image" content="https:&#x2F;&#x2F;laozeng.net&#x2F;images&#x2F;export-smartisan-notes-to-markdown&#x2F;Notes_1706614249930.jpg"><meta property="og:image" content="https:&#x2F;&#x2F;laozeng.net&#x2F;images&#x2F;export-smartisan-notes-to-markdown&#x2F;Notes_1706615095125.jpg"><meta property="og:image" content="https:&#x2F;&#x2F;laozeng.net&#x2F;images&#x2F;export-smartisan-notes-to-markdown&#x2F;Notes_1706615118120.jpg"><meta property="og:image" content="https:&#x2F;&#x2F;laozeng.net&#x2F;images&#x2F;export-smartisan-notes-to-markdown&#x2F;Notes_1706615130727.jpg"><meta property="og:image" content="https:&#x2F;&#x2F;laozeng.net&#x2F;images&#x2F;export-smartisan-notes-to-markdown&#x2F;Notes_1706615158124.jpg"><meta property="og:image" content="https:&#x2F;&#x2F;laozeng.net&#x2F;images&#x2F;export-smartisan-notes-to-markdown&#x2F;Notes_1706615180014.jpg"><meta property="og:image" content="https:&#x2F;&#x2F;laozeng.net&#x2F;images&#x2F;export-smartisan-notes-to-markdown&#x2F;Notes_1706701163018.jpg"><meta property="og:image" content="https:&#x2F;&#x2F;laozeng.net&#x2F;images&#x2F;export-smartisan-notes-to-markdown&#x2F;Notes_1706615219025.jpg"><meta property="og:image" content="https:&#x2F;&#x2F;laozeng.net&#x2F;images&#x2F;export-smartisan-notes-to-markdown&#x2F;Notes_1706699864326.jpg"><meta property="article:published_time" content="2024-01-31T16:00:00.000Z"><meta property="article:modified_time" content="2024-02-01T03:23:25.671Z"><meta property="og:updated_time" content="2024-02-01T03:23:25.671Z"><meta property="article:author" content="laozeng"><meta property="article:tag" content="Smartisan, 锤子便签"><meta name="twitter:card" content="summary">
+
+    
+
+    <!-- ### Canonical link ### -->
+    <link rel="canonical" href="https://laozeng.net/export-smartisan-notes-to-markdown.html">
+
+    <meta name="generator" content="Hexo 4.0.0">
+
+    <!-- ### Analytics ### -->
+    
+    <!-- Google Analytics -->
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-174261315-1', 'auto');
+    ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+
+
+
+
+    <script>
+    var _hmt = _hmt || [];
+    (function() {var hm = document.createElement('script');
+    hm.src = 'https://hm.baidu.com/hm.js?9c39f697e98413a14db71b5085798af2';
+    var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+    <!-- ### Structured Data ### -->
+    
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "url": "https://laozeng.net/export-smartisan-notes-to-markdown.html",
+    "@type": "BlogPosting",
+    "logo": "https://laozeng.net/img/favicon.ico",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://laozeng.net/export-smartisan-notes-to-markdown.html"
+    },
+    "headline": "锤子便签批量导出markdown文件，实现每天自动备份到本地 | Laozeng&#39;s Blog",
+    
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://laozeng.net/img/favicon.ico"
+    },
+    
+    "datePublished": "2024-01-31T16:00:00.000Z",
+    "dateModified": "2024-02-01T03:23:25.671Z",
+    "author": {
+        "@type": "Person",
+        "name": "laozeng",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://laozeng.net/img/default_avatar.png"
+        },
+        "description": "A man is not old until regrets take the place of dreams."
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "Laozeng&#39;s Blog",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://laozeng.net/img/favicon.ico"
+        }
+    },
+    
+    "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://laozeng.net/search?s={search_term_string}",
+        "query-input": "required name=search_term_string"
+    },
+    
+    "keywords": "Smartisan, 锤子便签",
+    "description": "锤子便签官方没有提供批量导出备份功能，程序实现批量导出，每天自动备份到本地。 - laozeng - Laozeng&#39;s Blog"
+}
+</script>
+
+
+
+    <!-- ### Custom Head ### -->
+    
+</head>
+
+    <body>
+            
+
+            <!-- ### Main content ### -->
+            <!-- ## Header ##-->
+<header>
+    <h1 class="header-title text-center"><a href="/">Laozeng&#39;s Blog</a></h1>
+
+    <p class="text-center header-slogan">
+        
+            
+                A man is not old until regrets take the place of dreams.
+            
+        
+    </p>
+
+    <nav class="navbar-section text-center">
+    
+        <a href="/" class="navbar-link">Home</a>
+    
+    
+        <a href="/archives/" class="navbar-link">Archives</a>
+    
+    
+    
+    
+        <div class="dropdown dropdown-right">
+    <a class="navbar-link dropdown-toggle" tabindex="0">Share</a>
+    <ul class="menu share-menu">
+
+        <!-- Share Weibo -->
+        
+        <li class="menu-item">
+            <a href="http://service.weibo.com/share/share.php?appkey=&title=Laozeng's Blog&url=https://laozeng.net&pic=https://laozeng.net/img/favicon.ico&searchPic=false&style=simple" target="_blank" rel="external noopener noreferrer nofollow">Share to Weibo</a>
+        </li>
+        
+
+        <!-- Share Twitter -->
+        
+        <li class="menu-item">
+            <a href="https://twitter.com/intent/tweet?text=Laozeng's Blog&url=https://laozeng.net&via=laozeng" target="_blank" rel="external noopener noreferrer nofollow">Share to Twitter</a>
+        </li>
+        
+
+        <!-- Share Facebook -->
+        
+
+        <!-- Share Google+ -->
+        
+
+        <!-- Share LinkedIn -->
+        
+
+        <!-- Share QQ -->
+        
+        <li class="menu-item">
+            <a href="http://connect.qq.com/widget/shareqq/index.html?site=Laozeng's Blog&title=锤子便签批量导出markdown文件，实现每天自动备份到本地&summary=laozeng blog&pics=https://laozeng.net/img/favicon.ico&url=https://laozeng.net" target="_blank" rel="external noopener noreferrer nofollow"> Share to QQ</a>
+        </li>
+        
+
+        <!-- Share Telegram -->
+        
+
+        <!-- QRCode -->
+        
+        <li class="menu-item">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJQAAACUCAAAAABQV18IAAAB3ElEQVR42u3a0a6DIBCEYd//pdvbxsrMLLUJrL83PTk18jVBYAeO14LXAQoUKFAXqENc53suHyTuu/pOtgOqDSppzDV0/v783KgdUK1Q5waSz6sXQP1ftQPqeaiZlyL5MaCejRp1aDWR/72jg1oWNeq86iGuQ6c/DlQ/lOqwd37eVs2AWhplQ4dBIeoa/WvqAmpplOqI7h5VgCYdHVRPVDK5jnDqbxWoTQ2eoLZEVR7uQtukIPn60aBaoNwCLw06juByEzeoHii3sHOTswr5k/C2NKKD2gqlOncUeJlCNtkEANUHpQa3BOs2HV14AqoXyhWSSYGZDJBu8xJUH1SysaMC+uRwjhtEQfVCJZ1yNoBNnguqJ8oFEyrgVwu4NGwD1RM1WqglB7QqHb+0SgC1JapyuCYpElxxGlczoLZFJSGEOxjogv7kACGonqjKoa7qJrfaVALVF5VMwDJILQaw8qQZqBaoajgxs+iLAw5Q26KqBwWT4DZZEN56+BTUUqjkoHG6oEvCsZ8O4IDaBpUeFlSFRWWwjINYUFujVIGQ3usGSfUSgXoeanZTqLIhBeo5qMrhnJnCA1RPlApbk4Wee0lc8QuqF0pNmm5iTYuMZKMJVA/UShcoUKBAfVxv9EGRID0gxoMAAAAASUVORK5CYII=" alr="QRCode">
+        </li>
+        
+
+    </ul>
+</div>
+    
+    
+</nav>
+</header>
+
+            
+    <!-- ## Post ## -->
+    <div class="post-container">
+    <div id="post-card" class="card">
+        
+        <div class="card-item-container">
+            <div class="card-inner-cell">
+                <!-- # Post Header Info # -->
+                <div class="card-header">
+                    
+    <h1 class="card-title h3 mb-2">锤子便签批量导出markdown文件，实现每天自动备份到本地</h1>
+
+
+
+
+<div class="post-header-info">
+    <p class="post-header-info-left text-gray">
+        <img class="author-thumb lazyload" data-src="/img/default_avatar.png" src="/img/suka-lazyload.gif" alt="laozeng's Avatar">
+        <span>2024-02-01</span>
+        
+            <span class="suka-devide-dot"></span>
+            <a class="category-link" href="/categories/%E6%95%99%E7%A8%8B/">教程</a>
+        
+        
+            <!-- Busuanzi Post Views -->
+<span id="busuanzi_container_page_pv" hidden>
+    <span class="suka-devide-dot"></span>
+    <span></span>
+    <span id="busuanzi_value_page_pv"></span>
+    <span>Views</span>
+</span>
+        
+        
+    </p>
+    <div class="post-header-info-right">
+        
+            <div class="dropdown dropdown-right">
+<a class="dropdown-toggle" tabindex="0">Share the post</a>
+<ul class="menu share-menu">
+    <!-- Share Weibo -->
+    
+    <li class="menu-item">
+        <a href="http://service.weibo.com/share/share.php?appkey=&title=锤子便签批量导出markdown文件，实现每天自动备份到本地&url=https://laozeng.net/export-smartisan-notes-to-markdown.html&pic=https://laozeng.net/img/favicon.ico&searchPic=false&style=simple" target="_blank" rel="external noopener noreferrer nofollow">Share to Weibo</a>
+    </li>
+    
+
+    <!-- Share Twitter -->
+    
+    <li class="menu-item">
+        <a href="https://twitter.com/intent/tweet?text=锤子便签批量导出markdown文件，实现每天自动备份到本地&url=https://laozeng.net/export-smartisan-notes-to-markdown.html&via=laozeng" target="_blank" rel="external noopener noreferrer nofollow">Share to Twitter</a>
+    </li>
+    
+
+    <!-- Share Facebook -->
+    
+
+    <!-- Share Google+ -->
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+    <li class="menu-item">
+        <a href="http://connect.qq.com/widget/shareqq/index.html?site=Laozeng's Blog&title=Laozeng's Blog&summary=laozeng blog&pics=https://laozeng.net/img/favicon.ico&url=https://laozeng.net/export-smartisan-notes-to-markdown.html" target="_blank" rel="external noopener noreferrer nofollow"> Share to QQ</a>
+    </li>
+    
+
+    <!-- Share Telegram -->
+    
+
+    <!-- QRCode -->
+    
+    <li class="menu-item">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJQAAACUCAAAAABQV18IAAAB3ElEQVR42u3a0a6DIBCEYd//pdvbxsrMLLUJrL83PTk18jVBYAeO14LXAQoUKFAXqENc53suHyTuu/pOtgOqDSppzDV0/v783KgdUK1Q5waSz6sXQP1ftQPqeaiZlyL5MaCejRp1aDWR/72jg1oWNeq86iGuQ6c/DlQ/lOqwd37eVs2AWhplQ4dBIeoa/WvqAmpplOqI7h5VgCYdHVRPVDK5jnDqbxWoTQ2eoLZEVR7uQtukIPn60aBaoNwCLw06juByEzeoHii3sHOTswr5k/C2NKKD2gqlOncUeJlCNtkEANUHpQa3BOs2HV14AqoXyhWSSYGZDJBu8xJUH1SysaMC+uRwjhtEQfVCJZ1yNoBNnguqJ8oFEyrgVwu4NGwD1RM1WqglB7QqHb+0SgC1JapyuCYpElxxGlczoLZFJSGEOxjogv7kACGonqjKoa7qJrfaVALVF5VMwDJILQaw8qQZqBaoajgxs+iLAw5Q26KqBwWT4DZZEN56+BTUUqjkoHG6oEvCsZ8O4IDaBpUeFlSFRWWwjINYUFujVIGQ3usGSfUSgXoeanZTqLIhBeo5qMrhnJnCA1RPlApbk4Wee0lc8QuqF0pNmm5iTYuMZKMJVA/UShcoUKBAfVxv9EGRID0gxoMAAAAASUVORK5CYII=" alt="QRCode">
+    </li>
+    
+
+</ul>
+</div>
+        
+    </div>
+</div>
+                </div>
+                <div class="card-body">
+                    
+                        
+                        
+                            <div id="post-toc"><ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#介绍"><span class="post-toc-number">1.</span> <span class="post-toc-text">介绍</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用方法"><span class="post-toc-number">2.</span> <span class="post-toc-text">使用方法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#进阶：每天自动备份"><span class="post-toc-number">3.</span> <span class="post-toc-text">进阶：每天自动备份</span></a></li></ol></div>
+                        
+                    
+                    <article id="post-content">
+                        <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a><strong>介绍</strong></h2><p>用了好年的锤子便签，竟然没有批量导出或者备份本地的功能。于是，只能自己想办法解决，通过程序完成自动导出为markdown格式的文件。</p>
+<p>项目地址：<a href="https://github.com/laozeng1024/Smartisan-notes" target="_blank" rel="noopener">https://github.com/laozeng1024/Smartisan-notes</a></p>
+<p>基于<a href="https://github.com/wintertee/Smartisan-notes-downloader" target="_blank" rel="noopener">Smartisan-notes-downloader</a>项目，并做了一些优化：</p>
+<ul>
+<li>解决目录/文件名过长，程序异常终止。如便签没有标题，默认会把长长的内容当文件名，导致执行错误。</li>
+<li>解决自动化登陆。程序中提前填入自己的用户名及密码，可在chrome模拟登陆，以便实现定期自动（配合任务计划程序或crontab）功能。</li>
+</ul>
+<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a><strong>使用方法</strong></h2><ul>
+<li><ol>
+<li>安装 Python3 （略）</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>安装 Chrome（略）</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>下载ChromeDriver</li>
+</ol>
+</li>
+</ul>
+<p>以下以Windows系统为例</p>
+<ul>
+<li><p>查看chrome浏览器版本,如：121.0.6167.86，这里的大版本是121<br> <img src="/images/export-smartisan-notes-to-markdown/Notes_1706614282825.jpg" alt="版本"></p>
+</li>
+<li><p>如版本号小于115,在这里找到对应的版本：<a href="https://chromedriver.chromium.org/downloads" target="_blank" rel="noopener">https://chromedriver.chromium.org/downloads</a> 。如114，进入下载chromedriver_win32.zip</p>
+</li>
+<li><p>如版本号大于115，到这个页面找对应的版本：<a href="https://googlechromelabs.github.io/chrome-for-testing/" target="_blank" rel="noopener">https://googlechromelabs.github.io/chrome-for-testing/</a> 。我的是121版本，下载win64版本：<a href="https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/121.0.6167.85/win64/chromedriver-win64.zip" target="_blank" rel="noopener">chromedriver-win64.zip</a> 。必须要下载和浏览器一致的版本，否则运行报错。<br><img src="/images/export-smartisan-notes-to-markdown/Notes_1706614293929.jpg" alt="下载"></p>
+</li>
+<li><p>解压zip，把chromedriver.exe文件复制到本地main.py同目录下。<br><img src="/images/export-smartisan-notes-to-markdown/Notes_1706614337818.jpg" alt="目录"></p>
+</li>
+</ul>
+<ul>
+<li><ol start="4">
+<li>安装依赖: <code>pip install -r requirements.txt</code></li>
+</ol>
+</li>
+<li><ol start="5">
+<li>修改main.py文件19-20行，替换为自己的信息，即欢喜云登陆的邮箱和密码。<br><img src="/images/export-smartisan-notes-to-markdown/Notes_1706614398223.jpg" alt="账号信息"></li>
+</ol>
+</li>
+<li><ol start="6">
+<li>运行程序：<code>python main.py</code></li>
+</ol>
+</li>
+<li><ol start="7">
+<li>备份的标签在downloads目录，每个便签独立文件夹。</li>
+</ol>
+</li>
+</ul>
+<p>最终导出效果：<br><img src="/images/export-smartisan-notes-to-markdown/Notes_1706614249930.jpg" alt="效果"></p>
+<h2 id="进阶：每天自动备份"><a href="#进阶：每天自动备份" class="headerlink" title="进阶：每天自动备份"></a><strong>进阶：每天自动备份</strong></h2><p>通过Windows的任务计划程序来实现每天自动备份锤子便签到本地，这样就再也不用担心数据丢失，即使欢喜云倒闭了也不影响。</p>
+<p>开始菜单搜索：任务计划程序<br><img src="/images/export-smartisan-notes-to-markdown/Notes_1706615095125.jpg" alt="任务计划程序"></p>
+<p>创建基本任务<br><img src="/images/export-smartisan-notes-to-markdown/Notes_1706615118120.jpg" alt="任务计划程序"></p>
+<p>任务触发器设置为每天：<br><img src="/images/export-smartisan-notes-to-markdown/Notes_1706615130727.jpg" alt="任务计划程序"></p>
+<p>设置每天运行的时间：<br><img src="/images/export-smartisan-notes-to-markdown/Notes_1706615158124.jpg" alt="任务计划程序"></p>
+<p>操作中选择：启动程序<br><img src="/images/export-smartisan-notes-to-markdown/Notes_1706615180014.jpg" alt="任务计划程序"></p>
+<p>关键在这里设置脚本auto.bat<br><img src="/images/export-smartisan-notes-to-markdown/Notes_1706701163018.jpg" alt="任务计划程序"></p>
+<p>将以下代码保存问auto.bat</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">set PROJECT_PATH=D:\Smartisan-notes</span><br><span class="line">set PYTHON_EXE_PATH=D:\Smartisan-notes\venv\Scripts\python.exe</span><br><span class="line">set SCRIPT_PATH=D:\Smartisan-notes\main.py</span><br><span class="line"></span><br><span class="line">set CHROMEDRIVER_PROCESS=chromedriver.exe</span><br><span class="line">set LOG_FILE=%PROJECT_PATH%\log.txt</span><br><span class="line"></span><br><span class="line">taskkill /F /IM %CHROMEDRIVER_PROCESS%</span><br><span class="line"></span><br><span class="line">cd /d %PROJECT_PATH%</span><br><span class="line">%PYTHON_EXE_PATH% %SCRIPT_PATH% 2&gt; %LOG_FILE%</span><br></pre></td></tr></table></figure>
+<p>其中，需要将三个参数换成自己实际的：</p>
+<blockquote>
+<p><strong>PROJECT_PATH</strong>: 为项目路径<br><strong>PYTHON_EXE_PATH</strong>: 为Python.exe路径<br><strong>SCRIPT_PATH</strong>: 为main.py路径</p>
+</blockquote>
+<p><img src="/images/export-smartisan-notes-to-markdown/Notes_1706615219025.jpg" alt="任务计划程序"></p>
+<p>完成后双击任务，修改只有用户登录时运行（因为要UI交互，后台运行报错）。</p>
+<p><img src="/images/export-smartisan-notes-to-markdown/Notes_1706699864326.jpg" alt="任务计划程序"></p>
+<p>好了，至此，可以每天自动备份，备份数据在当前目录downloads文件夹。</p>
+
+                    </article>
+                    
+
+
+    <blockquote id="date-expire-notification" class="post-expired-notify">This article was last updated on <span id="date-expire-num"></span> days ago, and the information described in the article may have changed.</blockquote>
+    <script>
+    (function() {
+        var dateUpdate = Date.parse("2024-02-01");
+        var nowDate = new Date();
+        var a = nowDate.getTime();
+        var b = a - dateUpdate;
+        var daysUpdateExpire = Math.floor(b/(24*3600*1000));
+        if (daysUpdateExpire >= 120) {
+            document.getElementById('date-expire-num').innerHTML = daysUpdateExpire;
+        } else {
+            document.getElementById('date-expire-notification').style.display = 'none';
+        }
+    })();
+    </script>
+
+
+<p class="post-footer-info mb-0 pt-0">Published at&nbsp;<time datetime="2024-01-31T16:00:00.000Z" itemprop="datePublished">2024-02-01</time>
+
+</p>
+<p class="post-footer-info mb-0 pt-2">
+
+<span class="post-categories-list mt-2">
+
+<a class="post-categories-list-item" href='/categories/%E6%95%99%E7%A8%8B/'>教程</a>
+
+</span>
+
+
+
+<span class="post-tags-list mt-2">
+
+<a class="post-tags-list-item" href="/tags/Smartisan/" rel="tag">#&nbsp;Smartisan</a>
+
+<a class="post-tags-list-item" href="/tags/%E9%94%A4%E5%AD%90%E4%BE%BF%E7%AD%BE/" rel="tag">#&nbsp;锤子便签</a>
+
+</span>
+
+
+</p>
+
+                </div>
+                <div class="post-nav px-2 bg-gray">
+<ul class="pagination">
+    <!-- Prev Nav -->
+    
+
+    <!-- Next Nav -->
+    
+        <li class="page-item page-next">
+            <a href="/how-to-set-https-proxy-with-ios-android.html" rel="next">
+                <div class="page-item-title"><i class="icon icon-forward" aria-hidden="true"></i></div>
+                <div class="page-item-subtitle">Android和iOS HTTPS代理抓包配置tips</div>
+            </a>
+        </li>
+    
+</ul>
+</div>
+
+                
+                    <!-- # Comment # -->
+                    
+                        <div class="card-footer post-comment">
+                            <!-- Gitalk Container -->
+<div id="gitalk-container"></div>
+
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/gitalk@1.3.3/dist/gitalk.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.3.3/dist/gitalk.min.css"></noscript>
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1.3.3/dist/gitalk.min.js"></script>
+
+<script>
+    var gitalk = new Gitalk({
+            clientID: '8063c2f9859e2ecf4989',
+            clientSecret: 'b15c4e85881970fa0d9d87320d90fa62e019e321',
+            repo: 'laozeng1024.github.io',
+            owner: 'laozeng1024',
+            admin: ['laozeng1024'],
+            // facebook-like distraction free mode
+            distractionFreeMode: false,
+            id: window.location.pathname
+        })
+   gitalk.render('gitalk-container')
+</script>
+                        </div>
+                    
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+            <!-- ### Footer ### -->
+            <footer class="text-center">
+    <!-- footer copyright -->
+
+    
+        <p class="footer-copyright mb-0">Copyright&nbsp;©&nbsp;<span id="copyright-year"></span>
+            <a class="footer-copyright-a" href="https://laozeng.net">Laozeng's Blog</a>
+        </p>
+
+    <!-- footer custom text -->
+    <p class="footer-text mb-0">
+    
+    </p>
+    <!-- footer develop info -->
+
+</footer>
+
+
+        <!-- ### Import File ### -->
+        <!-- ### Footer JS Import ### -->
+
+<script>
+
+    
+window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 50
+};
+document.getElementById('copyright-year').textContent = new Date().getFullYear();
+console.log('\n %c Suka Theme (hexo-theme-suka) | © SukkaW | Verision 1.3.3 %c https://github.com/SukkaW/hexo-theme-suka \n', 'color: #fff; background: #444; padding:5px 0;', 'background: #bbb; padding:5px 0;');
+
+</script>
+
+<script src="/lib/vanilla-lazyload/lazyload.min.js" async></script>
+    <script src="https://cdn.jsdelivr.net/npm/busuanzi@2.3.0/bsz.pure.mini.js" async></script>
+
+
+<!-- Offset -->
+
+
+
+
+<!-- Comment -->
+
+    
+        <!-- GitTalk -->
+    
+
+
+<!-- ### Custom Footer ### -->
+
+    </body>
+
+</html>
